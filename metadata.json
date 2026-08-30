@@ -1,0 +1,6 @@
+{
+  "name": "PathPilot AI",
+  "description": "A personalized career and education advisor for students providing tailored career exploration, interactive skill roadmaps, and supportive AI mentorship.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
