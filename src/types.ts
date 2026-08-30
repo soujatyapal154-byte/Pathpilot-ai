@@ -1,97 +1,47 @@
-/**
- * PathPilot AI - Types and Data Models
- * Personalized career & education exploration for students
- */
+export type GradeLevel = 'middle_school' | 'early_high_school' | 'late_high_school' | 'early_college' | 'other';
 
-export type EducationLevel =
-  | 'Middle School (Ages 11-14)'
-  | 'High School - Early (Grades 9-10 / Ages 14-16)'
-  | 'High School - Senior (Grades 11-12 / Ages 16-18)'
-  | 'Undergraduate / College Student'
-  | 'Vocational / Technical Student'
-  | 'Gap Year / Career Explorer';
-
-export type LearningStyle =
-  | 'Hands-on & Project-based'
-  | 'Visual & Concept Maps'
-  | 'Reading & Written Reflection'
-  | 'Collaborative & Group Discussions'
-  | 'Self-paced Interactive Tutorials';
-
-export type BudgetPreference =
-  | 'Low-Cost / Self-Directed & Free Resources'
-  | 'Community College / Vocational Training'
-  | 'Standard In-State / Public University'
-  | 'Flexible / Exploring All Paths & Scholarships'
-  | 'No Specific Preference';
+export type WorkEnvironment = 'outdoors_hands_on' | 'creative_studio' | 'tech_office_remote' | 'lab_research' | 'community_helping' | 'business_corporate';
 
 export interface StudentProfile {
-  educationLevel: EducationLevel;
-  ageGroup: string;
-  countryRegion: string;
+  name?: string;
+  gradeLevel: GradeLevel;
   favoriteSubjects: string[];
   interests: string[];
   skills: string[];
-  strengths: string[];
-  activitiesEnjoyed: string[];
-  activitiesDisliked: string[];
-  curiousCareers: string[];
-  learningStyle: LearningStyle;
-  budgetPreference: BudgetPreference;
-  additionalNotes?: string;
+  workPreferences: {
+    environment: WorkEnvironment;
+    teamwork: 'solo' | 'small_team' | 'large_team';
+    problemSolvingStyle: 'practical_hands_on' | 'analytical_logical' | 'creative_intuitive' | 'social_empathetic';
+  };
+  hobbies: string[];
+  freeformNotes?: string;
 }
 
-export interface SkillItem {
-  name: string;
-  category: 'technical' | 'human' | 'domain';
-  importance: 'essential' | 'advantageous';
-  description?: string;
-}
-
-export interface SubjectRecommendation {
-  subject: string;
-  reason: string;
-  relevanceLevel: 'High' | 'Medium';
-}
-
-export interface EducationPathway {
-  pathType: 'University Degree' | 'Community / Vocational College' | 'Self-Taught & Bootcamps' | 'Apprenticeship & Certifications';
+export interface RoadmapMilestone {
+  id: string;
+  phase: 'Foundation' | 'Skill Building' | 'Projects' | 'Education' | 'Experience' | 'Career Launch';
   title: string;
   description: string;
-  duration: string;
-  costLevel: '$' | '$$' | '$$$';
-  pros: string[];
-  considerations: string[];
+  timeframe: string;
+  recommendedSubjects: string[];
+  actionItems: string[];
+  resources: {
+    title: string;
+    type: 'Course' | 'Book' | 'Website' | 'Tool' | 'Competition' | 'Club';
+    url?: string;
+  }[];
+  keyMilestone: string;
 }
 
-export interface BeginnerProject {
+export interface CareerProject {
   id: string;
   title: string;
-  summary: string;
-  difficulty: 'Beginner' | 'Intermediate';
-  estimatedHours: string;
-  deliverables: string[];
+  description: string;
+  difficulty: 'Beginner' | 'Intermediate' | 'Advanced';
+  timeEstimate: string;
   toolsNeeded: string[];
-  stepByStepGuide: string[];
-}
-
-export interface ResourceLink {
-  name: string;
-  type: 'free_course' | 'tool' | 'platform' | 'community' | 'reading';
-  note: string;
-}
-
-export interface RoadmapStep {
-  id: string;
-  stage: 'Foundation' | 'Skills' | 'Projects' | 'Education' | 'Experience' | 'Career';
-  stageNumber: number;
-  title: string;
-  subtitle: string;
-  description: string;
-  keyActions: string[];
-  recommendedResources: ResourceLink[];
-  estimatedDuration: string;
-  completed?: boolean;
+  stepByStepOverview: string[];
+  learningOutcome: string;
 }
 
 export interface CareerRecommendation {
@@ -101,38 +51,44 @@ export interface CareerRecommendation {
   tagline: string;
   matchScore: number;
   whyItMatches: string;
-  matchReasons: {
-    factor: string;
-    studentConnection: string;
+  description: string;
+  dayInTheLife: string[];
+  coreSkills: {
+    technical: string[];
+    soft: string[];
+  };
+  salaryOutlook: {
+    entryLevel: string;
+    median: string;
+    experienced: string;
+    growthRate: string;
+  };
+  educationPaths: {
+    type: 'Degree' | 'Bootcamp/Certification' | 'Self-Taught / Apprenticeship';
+    details: string;
   }[];
-  importantSkills: SkillItem[];
-  recommendedSubjects: SubjectRecommendation[];
-  possibleEducationPaths: EducationPathway[];
-  beginnerProjects: BeginnerProject[];
-  futureLearningSteps: string[];
-  roadmap: RoadmapStep[];
-  dayInTheLife: string;
-  growthOutlook: string;
-  transferableStrengths: string[];
-  discussionPointsForCounselor: string[];
+  beginnerProjects: CareerProject[];
+  highSchoolSubjects: string[];
+  pros: string[];
+  challenges: string[];
+  roadmap: RoadmapMilestone[];
 }
 
-export interface AnalysisResponse {
+export interface CareerAnalysisResult {
   studentSummary: string;
-  identifiedArchetype: string;
-  topStrengthsProfile: string[];
-  guidanceDisclaimer: string;
-  careerRecommendations: CareerRecommendation[];
-  generalAdvice: string[];
+  strengthHighlights: string[];
+  topCareers: CareerRecommendation[];
+  crossDisciplinaryInsight: string;
+  recommendedImmediateAction: string;
 }
 
-export interface ChatMessage {
+export interface MentorChatMessage {
   id: string;
-  sender: 'user' | 'mentor';
-  text: string;
-  timestamp: string;
+  role: 'user' | 'assistant' | 'system';
+  content: string;
+  timestamp: number;
   careerContext?: string;
   suggestedPrompts?: string[];
 }
 
-export type ActiveTab = 'landing' | 'questionnaire' | 'recommendations' | 'career-detail' | 'roadmap' | 'mentor' | 'saved';
+export type ActiveTab = 'landing' | 'quiz' | 'recommendations' | 'career-detail' | 'roadmap' | 'mentor';
